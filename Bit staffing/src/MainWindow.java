@@ -29,11 +29,11 @@ public class MainWindow {
     private JLabel codedDataLabel;
 
     public MainWindow() {
-        //transferredData.setWrapStyleWord(true);
-      // transferredData.setLineWrap(true);
-
-     //   transferredData.addKeyListener(new KeyListener());
+        transferredData.addKeyListener(new KeyListener());
         buttonSendData.addActionListener(new ButtonListener());
+        transferredData.setSize(250,20);
+        decodedData.setSize(250,20);
+        codedData.setSize(250,50);
     }
 
     public JPanel getMainPanel() {
@@ -41,15 +41,15 @@ public class MainWindow {
     }
 
 
-//    private class KeyListener extends KeyAdapter{
-//        @Override
-//        public void keyTyped(KeyEvent e) {
-//            char inputSymbol=e.getKeyChar();
-//            if (inputSymbol!='0' && inputSymbol!='1') {
-//                e.consume();
-//            }
-//        }
-//    }
+    private class KeyListener extends KeyAdapter{
+        @Override
+        public void keyTyped(KeyEvent e) {
+            char inputSymbol=e.getKeyChar();
+            if (inputSymbol!='0' && inputSymbol!='1') {
+                e.consume();
+            }
+        }
+    }
 
     private class ButtonListener implements ActionListener {
         @Override

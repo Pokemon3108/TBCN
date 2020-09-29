@@ -3,11 +3,11 @@ import java.util.List;
 
 public class StuffingService {
 
-    // final String flag = "1101110";
+    final String flag = "1101110";
     // final char insertedSymbol=(char)((flag.charAt(flag.length()-1)-1)*(-1)+'0');
-    //final char insertedSymbol = (char) (Integer.parseInt(String.valueOf(flag.charAt(flag.length() - 1))) ^ 1);
-    final String flag = "333";
-    final char insertedSymbol = '2';
+    final char insertedSymbol = (char) (Integer.parseInt(String.valueOf(flag.charAt(flag.length() - 1))) ^ 1 + '0');
+    //    final String flag = "333";
+//    final char insertedSymbol = '2';
     List<Integer> indexesOfStuffedBits = new ArrayList<>();
 
     public List<Integer> getIndexesOfStuffedBits() {
@@ -47,7 +47,7 @@ public class StuffingService {
 
     @Override
     public String toString() {
-        return "Flag: " + flag +"\n"
-                + "Inserted bit: " + insertedSymbol +"\n";
+        return "Flag: " + flag + "\n"
+                + "Inserted bit: " + insertedSymbol + "\n";
     }
 }
