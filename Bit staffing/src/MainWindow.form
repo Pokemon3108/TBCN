@@ -19,7 +19,7 @@
         </constraints>
         <properties>
           <preferredSize width="140" height="16"/>
-          <text value="Received decoded data"/>
+          <text value="Output data"/>
         </properties>
       </component>
       <component id="19051" class="javax.swing.JLabel" binding="codedDataLabel">
@@ -28,7 +28,7 @@
           <gridbag top="0" left="0" bottom="18" right="0" weightx="0.0" weighty="0.0"/>
         </constraints>
         <properties>
-          <text value="Received coded data"/>
+          <text value="Status"/>
         </properties>
       </component>
       <component id="af8f1" class="javax.swing.JLabel" binding="transferredDataLabel">
@@ -40,7 +40,7 @@
           <maximumSize width="70" height="16"/>
           <minimumSize width="90" height="16"/>
           <preferredSize width="122" height="16"/>
-          <text value="Transferred data"/>
+          <text value="Input data"/>
         </properties>
       </component>
       <component id="28edf" class="javax.swing.JButton" binding="buttonSendData">
@@ -60,13 +60,9 @@
         <properties/>
         <border type="none"/>
         <children>
-          <component id="45ab4" class="javax.swing.JTextArea" binding="transferredData">
+          <component id="b671e" class="javax.swing.JTextField" binding="inputData">
             <constraints/>
-            <properties>
-              <lineWrap value="false"/>
-              <margin top="0" left="0" bottom="0" right="0"/>
-              <rows value="1"/>
-            </properties>
+            <properties/>
           </component>
         </children>
       </scrollpane>

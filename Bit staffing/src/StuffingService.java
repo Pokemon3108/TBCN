@@ -3,12 +3,9 @@ import java.util.List;
 
 public class StuffingService {
 
-    final String flag = "1101110";
-    // final char insertedSymbol=(char)((flag.charAt(flag.length()-1)-1)*(-1)+'0');
-    final char insertedSymbol = (char) (Integer.parseInt(String.valueOf(flag.charAt(flag.length() - 1))) ^ 1 + '0');
-    //    final String flag = "333";
-//    final char insertedSymbol = '2';
-    List<Integer> indexesOfStuffedBits = new ArrayList<>();
+    private final String flag = "01101110";
+    private final char insertedSymbol = (char) (Integer.parseInt(String.valueOf(flag.charAt(flag.length() - 1))) ^ 1 + '0');
+    private List<Integer> indexesOfStuffedBits = new ArrayList<>();
 
     public List<Integer> getIndexesOfStuffedBits() {
         return indexesOfStuffedBits;
@@ -18,7 +15,7 @@ public class StuffingService {
         int startIndex = 0;
         StringBuilder stuffedString = new StringBuilder(data);
 
-        int indexEntrance = stuffedString.indexOf(flag, startIndex);
+        int indexEntrance = stuffedString.indexOf(flag.substring(0, flag.length()-1), startIndex);
         while (indexEntrance != -1) {
             int indexOfInsertedBit = indexEntrance + flag.length() - 1;
             indexesOfStuffedBits.add(indexOfInsertedBit);
@@ -31,7 +28,7 @@ public class StuffingService {
     }
 
     public String deBitStuffData(String data) {
-        final String changedFlag = flag.substring(0, flag.length() - 1) + insertedSymbol + flag.charAt(flag.length() - 1);
+        final String changedFlag = flag.substring(0, flag.length() - 1) + insertedSymbol;
 
         int startIndex = 0;
         StringBuilder stuffedData = new StringBuilder(data);
@@ -43,11 +40,12 @@ public class StuffingService {
         }
 
         return stuffedData.toString();
+
     }
 
     @Override
     public String toString() {
         return "Flag: " + flag + "\n"
-                + "Inserted bit: " + insertedSymbol + "\n";
+                + "Bit for inserting: " + insertedSymbol + "\n";
     }
 }

@@ -13,14 +13,5 @@ public class Runner {
             frame.setVisible(true);
         }));
 
-      //  int i=1;
-      //  System.out.println(i^1);
-
-//        StuffingService stuffingService=new StuffingService();
-//        System.out.println("0101333011113330013330");
-//        String str=stuffingService.stuffData("0101333011113330013330");
-//        System.out.println(str);
-//        str=stuffingService.deBitStuffData(str);
-//        System.out.println(str);
     }
 }

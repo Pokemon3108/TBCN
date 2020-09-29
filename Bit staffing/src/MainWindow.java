@@ -1,8 +1,4 @@
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
+import javax.swing.*;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultCaret;
 import javax.swing.text.DefaultHighlighter;
@@ -20,7 +16,7 @@ public class MainWindow {
     private JPanel mainPanel;
     private JButton buttonSendData;
 
-    private JTextArea transferredData;
+    private JTextField inputData;
     private JTextArea decodedData;
     private JTextArea codedData;
 
@@ -28,10 +24,13 @@ public class MainWindow {
     private JLabel decodedDataLabel;
     private JLabel codedDataLabel;
 
+
     public MainWindow() {
-        transferredData.addKeyListener(new KeyListener());
+        codedData.setText(stuffingService.toString());
+        inputData.addKeyListener(new KeyListener());
+      //  transferredData.addKeyListener();
         buttonSendData.addActionListener(new ButtonListener());
-        transferredData.setSize(250,20);
+      //  transferredData.setSize(250,20);
         decodedData.setSize(250,20);
         codedData.setSize(250,50);
     }
@@ -54,7 +53,7 @@ public class MainWindow {
     private class ButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            String data=transferredData.getText();
+            String data=inputData.getText();
             String codedString=stuffingService.stuffData(data);
             codedData.setText(stuffingService.toString()+codedString);
 
