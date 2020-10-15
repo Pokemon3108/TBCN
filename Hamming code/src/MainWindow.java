@@ -1,8 +1,15 @@
-import javax.swing.*;
+import service.HammingCodeService;
+import service.HammingDecodeService;
+
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultHighlighter;
 import javax.swing.text.Highlighter;
-import java.awt.*;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -10,28 +17,29 @@ import java.awt.event.KeyEvent;
 
 public class MainWindow {
 
-    private StuffingService stuffingService=new StuffingService();
-
     private JPanel mainPanel;
     private JButton buttonSendData;
 
     private JTextField inputData;
-    private JTextArea decodedData;
-    private JTextArea codedData;
+    private JTextArea outputData;
+    private JTextArea status;
 
-    private JLabel transferredDataLabel;
-    private JLabel decodedDataLabel;
-    private JLabel codedDataLabel;
+    private JLabel inputDataLabel;
+    private JLabel outputDataLabel;
+    private JLabel statusLabel;
+
+    private HammingCodeService codeService=new HammingCodeService();
+    private HammingDecodeService decodeService=new HammingDecodeService();
 
 
     public MainWindow() {
-        codedData.setText(stuffingService.toString());
         inputData.addKeyListener(new KeyListener());
-      //  transferredData.addKeyListener();
         buttonSendData.addActionListener(new ButtonListener());
-      //  transferredData.setSize(250,20);
-        decodedData.setSize(250,20);
-        codedData.setSize(250,50);
+
+        outputData.setSize(250,20);
+        status.setSize(250,50);
+
+        status.setText(codeService.toString());
     }
 
     public JPanel getMainPanel() {
@@ -46,6 +54,9 @@ public class MainWindow {
             if (inputSymbol!='0' && inputSymbol!='1') {
                 e.consume();
             }
+            if (inputData.getText().length()>=codeService.getMaxLen()) {
+                e.consume();
+            }
         }
     }
 
@@ -53,23 +64,25 @@ public class MainWindow {
         @Override
         public void actionPerformed(ActionEvent e) {
             String data=inputData.getText();
-            String codedString=stuffingService.stuffData(data);
-            codedData.setText(stuffingService.toString()+codedString);
+            String codedStr=codeService.codeString(data);
+            status.setText(codeService.toString()+codedStr);
 
-            int infoLen=stuffingService.toString().length();
-            decodedData.setText(stuffingService.deBitStuffData(codedString));
+            int infoLen=codeService.toString().length();
+            outputData.setText(decodeService.decodeString(codedStr));
             designateInsertedBits(infoLen);
         }
     }
 
     private void designateInsertedBits(int startOfDesignation) {
-        Highlighter highlighter = codedData.getHighlighter();
+        Highlighter highlighter = status.getHighlighter();
         Highlighter.HighlightPainter painter =
                 new DefaultHighlighter.DefaultHighlightPainter(Color.pink);
-        stuffingService.getIndexesOfStuffedBits().stream().forEach(index-> {
+        codeService.getInsertedBits().stream().forEach(index-> {
             try {
                 highlighter.addHighlight(startOfDesignation+index,startOfDesignation+index+1, painter);
-            } catch (BadLocationException e) { }
+            } catch (BadLocationException e) {
+                System.out.println("Can not highlight bits");
+            }
         });
     }
 }

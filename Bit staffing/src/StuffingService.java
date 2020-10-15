@@ -12,15 +12,14 @@ public class StuffingService {
     }
 
     public String stuffData(String data) {
-        int startIndex = 0;
         StringBuilder stuffedString = new StringBuilder(data);
 
-        int indexEntrance = stuffedString.indexOf(flag.substring(0, flag.length()-1), startIndex);
+        int indexEntrance = stuffedString.indexOf(flag.substring(0, flag.length()-1));
         while (indexEntrance != -1) {
             int indexOfInsertedBit = indexEntrance + flag.length() - 1;
             indexesOfStuffedBits.add(indexOfInsertedBit);
             stuffedString.insert(indexOfInsertedBit, insertedSymbol);
-            indexEntrance = stuffedString.indexOf(flag, indexEntrance + 1);
+            indexEntrance = stuffedString.indexOf(flag.substring(0, flag.length()-1), indexEntrance + 1);
         }
 
         return stuffedString.toString();
@@ -30,16 +29,15 @@ public class StuffingService {
     public String deBitStuffData(String data) {
         final String changedFlag = flag.substring(0, flag.length() - 1) + insertedSymbol;
 
-        int startIndex = 0;
-        StringBuilder stuffedData = new StringBuilder(data);
-        int indexEntrance = stuffedData.indexOf(changedFlag, startIndex);
+        StringBuilder deStuffedData = new StringBuilder(data);
+        int indexEntrance = deStuffedData.indexOf(changedFlag);
         while (indexEntrance != -1) {
             int indexOfRemovedBit = indexEntrance + changedFlag.length() - 2;
-            stuffedData.deleteCharAt(indexOfRemovedBit);
-            indexEntrance = stuffedData.indexOf(changedFlag, indexEntrance + 1);
+            deStuffedData.deleteCharAt(indexOfRemovedBit);
+            indexEntrance = deStuffedData.indexOf(changedFlag, indexEntrance + 1);
         }
 
-        return stuffedData.toString();
+        return deStuffedData.toString();
 
     }
 
