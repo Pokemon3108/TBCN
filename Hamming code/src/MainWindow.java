@@ -1,15 +1,11 @@
 import service.HammingCodeService;
 import service.HammingDecodeService;
 
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
+import javax.swing.*;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultHighlighter;
 import javax.swing.text.Highlighter;
-import java.awt.Color;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -28,16 +24,16 @@ public class MainWindow {
     private JLabel outputDataLabel;
     private JLabel statusLabel;
 
-    private HammingCodeService codeService=new HammingCodeService();
-    private HammingDecodeService decodeService=new HammingDecodeService();
+    private HammingCodeService codeService = new HammingCodeService();
+    private HammingDecodeService decodeService = new HammingDecodeService();
 
 
     public MainWindow() {
         inputData.addKeyListener(new KeyListener());
         buttonSendData.addActionListener(new ButtonListener());
 
-        outputData.setSize(250,20);
-        status.setSize(250,50);
+        outputData.setSize(250, 20);
+        status.setSize(250, 50);
 
         status.setText(codeService.toString());
     }
@@ -47,27 +43,26 @@ public class MainWindow {
     }
 
 
-    private class KeyListener extends KeyAdapter{
+    private class KeyListener extends KeyAdapter {
         @Override
         public void keyTyped(KeyEvent e) {
-            char inputSymbol=e.getKeyChar();
-            if (inputSymbol!='0' && inputSymbol!='1') {
+            char inputSymbol = e.getKeyChar();
+            if (inputSymbol != '0' && inputSymbol != '1'
+                    || inputData.getText().length() >= codeService.getMaxLen()) {
                 e.consume();
             }
-            if (inputData.getText().length()>=codeService.getMaxLen()) {
-                e.consume();
-            }
+
         }
     }
 
     private class ButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            String data=inputData.getText();
-            String codedStr=codeService.codeString(data);
-            status.setText(codeService.toString()+codedStr);
+            String data = inputData.getText();
+            String codedStr = codeService.codeString(data);
+            status.setText(codeService.toString() + codedStr);
 
-            int infoLen=codeService.toString().length();
+            int infoLen = codeService.toString().length();
             outputData.setText(decodeService.decodeString(codedStr));
             designateInsertedBits(infoLen);
         }
@@ -77,9 +72,9 @@ public class MainWindow {
         Highlighter highlighter = status.getHighlighter();
         Highlighter.HighlightPainter painter =
                 new DefaultHighlighter.DefaultHighlightPainter(Color.pink);
-        codeService.getInsertedBits().stream().forEach(index-> {
+        codeService.getInsertedBits().stream().forEach(index -> {
             try {
-                highlighter.addHighlight(startOfDesignation+index,startOfDesignation+index+1, painter);
+                highlighter.addHighlight(startOfDesignation + index, startOfDesignation + index + 1, painter);
             } catch (BadLocationException e) {
                 System.out.println("Can not highlight bits");
             }

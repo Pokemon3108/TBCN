@@ -1,6 +1,3 @@
-import service.HammingCodeService;
-import service.HammingDecodeService;
-
 import javax.swing.*;
 import java.io.IOException;
 
@@ -16,12 +13,7 @@ public class Runner {
             frame.setResizable(false);
             frame.setVisible(true);
         }));
-//        HammingCodeService service=new HammingCodeService();
-//        HammingDecodeService decodeService=new HammingDecodeService();
-//        String coded=service.codeString("11");
-//        System.out.println(coded);
-//        String dec=decodeService.decodeString(coded);
-//        System.out.println(dec);
+
     }
 
 
