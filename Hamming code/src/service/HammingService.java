@@ -1,6 +1,6 @@
 package service;
 
-public class CreationControlSums {
+public class HammingService {
 
     int binaryCodeDigitAmount;
 

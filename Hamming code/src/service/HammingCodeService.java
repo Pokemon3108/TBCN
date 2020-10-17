@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class HammingCodeService extends CreationControlSums {
+public class HammingCodeService extends HammingService {
 
     private final int maxLen = 18;
 
