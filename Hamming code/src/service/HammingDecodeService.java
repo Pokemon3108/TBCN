@@ -29,29 +29,42 @@ public class HammingDecodeService extends HammingService {
         List<Integer> controlDigits = createControlDigits(data.length());
         StringBuilder builder = new StringBuilder(data);
 
-        int[][] controlSums = super.createControlSums(data.length() - controlDigits.size());
+        int[][] controlSums = super.createControlSums(binaryCodeDigitAmount);
 
         Set<Integer> errorBits = IntStream.range(1, data.length() + 1)
                 .boxed()
                 .collect(Collectors.toSet());
 
+        StringBuilder error=new StringBuilder();
         for (int[] controlSum : controlSums) {
             int sum = Arrays.stream(controlSum)
+                    .filter(el->el!=0)
                     .map(index -> data.charAt(index - 1))
                     .sum();
-            if (sum % 2 != 1) {
-                errorBits.retainAll(Collections.singleton(controlSum));
-            }
+            error.append(sum%2);
+//            int j=sum%2;
+//            if (sum % 2 == 1) {
+//                errorBits.retainAll(Collections.singleton(controlSum));
+//            }
         }
 
-        if (errorBits.size() != data.length()) {
-            int errorIndex = errorBits.stream().findFirst().get();
+        int errorIndex=Integer.parseInt(error.reverse().toString(), 2);
+        if (errorIndex!=0) {
             char errorBit = data.charAt(errorIndex);
             builder.setCharAt(errorIndex, invertBit(errorBit));
         }
 
         controlDigits.forEach(index -> builder.setCharAt(index-1, '_'));
         return builder.toString().replaceAll("_", "");
+
+//        if (errorBits.size() != 0) {
+//            int errorIndex = errorBits.stream().findFirst().get();
+//            char errorBit = data.charAt(errorIndex);
+//            builder.setCharAt(errorIndex, invertBit(errorBit));
+//        }
+//
+//        controlDigits.forEach(index -> builder.setCharAt(index-1, '_'));
+//        return builder.toString().replaceAll("_", "");
 
     }
 }

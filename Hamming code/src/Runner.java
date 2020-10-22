@@ -1,9 +1,10 @@
+import service.HammingCodeService;
+import service.HammingDecodeService;
+
 import javax.swing.*;
-import java.io.IOException;
 
-
-public class Runner {
-    public static void main(String[] args) throws IOException {
+class Runner {
+    public static void main(String[] args) {
         SwingUtilities.invokeLater(new Thread(()->{
             MainWindow window=new MainWindow();
             JFrame frame=new JFrame("Hamming code");
@@ -13,6 +14,11 @@ public class Runner {
             frame.setResizable(false);
             frame.setVisible(true);
         }));
+
+//        HammingCodeService codeService=new HammingCodeService();
+//        HammingDecodeService decodeService=new HammingDecodeService();
+//        System.out.println(codeService.codeString("11"));
+//        System.out.println(decodeService.decodeString("01111"));
 
     }
 

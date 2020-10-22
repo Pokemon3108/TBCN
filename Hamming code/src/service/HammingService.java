@@ -2,7 +2,7 @@ package service;
 
 public class HammingService {
 
-    int binaryCodeDigitAmount;
+    static int binaryCodeDigitAmount;
 
     int[][] createControlSums(int len) {
         int[][] controlSum = new int[binaryCodeDigitAmount][len / 2+1];

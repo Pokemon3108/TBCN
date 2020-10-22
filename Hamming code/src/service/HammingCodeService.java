@@ -31,12 +31,17 @@ public class HammingCodeService extends HammingService {
 
     private int getBinaryCodeAmount(String data) {
         int i = 1, amount=0;
-        while (i<=data.length()+amount) {
+//        while (i<=data.length()+amount) {
+//            ++amount;
+//            i*=2;
+//        }
+
+        int len=data.length();
+        while ((amount-(Math.log(amount+1) / Math.log(2))) <len) {
             ++amount;
-            i*=2;
         }
 
-        return amount;
+        return amount-len;
     }
 
     public String codeString(String data) {
