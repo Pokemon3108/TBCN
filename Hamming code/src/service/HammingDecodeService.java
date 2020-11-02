@@ -22,18 +22,18 @@ public class HammingDecodeService extends HammingService {
     }
 
     private char invertBit(char bit) {
-        return (char) (bit ^ 1 + '0');
+        return (char) ((bit-'0') ^ 1 + '0');
     }
 
     public String decodeString(String data) {
         List<Integer> controlDigits = createControlDigits(data.length());
         StringBuilder builder = new StringBuilder(data);
 
-        int[][] controlSums = super.createControlSums(binaryCodeDigitAmount);
+        int[][] controlSums = super.createControlSums(data.length());
 
-        Set<Integer> errorBits = IntStream.range(1, data.length() + 1)
-                .boxed()
-                .collect(Collectors.toSet());
+//        Set<Integer> errorBits = IntStream.range(1, data.length() + 1)
+//                .boxed()
+//                .collect(Collectors.toSet());
 
         StringBuilder error=new StringBuilder();
         for (int[] controlSum : controlSums) {
@@ -42,29 +42,17 @@ public class HammingDecodeService extends HammingService {
                     .map(index -> data.charAt(index - 1))
                     .sum();
             error.append(sum%2);
-//            int j=sum%2;
-//            if (sum % 2 == 1) {
-//                errorBits.retainAll(Collections.singleton(controlSum));
-//            }
         }
 
         int errorIndex=Integer.parseInt(error.reverse().toString(), 2);
         if (errorIndex!=0) {
-            char errorBit = data.charAt(errorIndex);
-            builder.setCharAt(errorIndex, invertBit(errorBit));
+            char errorBit = data.charAt(errorIndex-1);
+            builder.setCharAt(errorIndex-1, invertBit(errorBit));
         }
 
         controlDigits.forEach(index -> builder.setCharAt(index-1, '_'));
         return builder.toString().replaceAll("_", "");
 
-//        if (errorBits.size() != 0) {
-//            int errorIndex = errorBits.stream().findFirst().get();
-//            char errorBit = data.charAt(errorIndex);
-//            builder.setCharAt(errorIndex, invertBit(errorBit));
-//        }
-//
-//        controlDigits.forEach(index -> builder.setCharAt(index-1, '_'));
-//        return builder.toString().replaceAll("_", "");
 
     }
 }

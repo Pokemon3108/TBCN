@@ -72,7 +72,7 @@ public class MainWindow {
         Highlighter highlighter = status.getHighlighter();
         Highlighter.HighlightPainter painter =
                 new DefaultHighlighter.DefaultHighlightPainter(Color.pink);
-        codeService.getInsertedBits().stream().forEach(index -> {
+        codeService.getInsertedBits().forEach(index -> {
             try {
                 highlighter.addHighlight(startOfDesignation + index, startOfDesignation + index + 1, painter);
             } catch (BadLocationException e) {

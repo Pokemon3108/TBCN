@@ -45,7 +45,7 @@ public class HammingCodeService extends HammingService {
     }
 
     public String codeString(String data) {
-        super.binaryCodeDigitAmount = getBinaryCodeAmount(data);
+        binaryCodeDigitAmount = getBinaryCodeAmount(data);
         StringBuilder builder = new StringBuilder(markInsertedPositions(data));
 
         int[][] controlSums = createControlSums(builder.length());
