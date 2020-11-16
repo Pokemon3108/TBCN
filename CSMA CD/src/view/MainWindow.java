@@ -44,7 +44,7 @@ public class MainWindow {
             inputData.setEnabled(false);
             Thread t=new Thread(new Update());
             t.start();
-           // ExecutorService executor = Executors.newSingleThreadExecutor();
+            // ExecutorService executor = Executors.newSingleThreadExecutor();
            // executor.execute(new Update());
 
             inputData.setEnabled(true);
@@ -57,20 +57,14 @@ public class MainWindow {
                 String receivedData="";
                 String statusText = "";
                 for (int i = 0; i < data.length(); ++i) {
-                    service.checkFreeChannel();
-                    int colAmount = 0;
-                    if (service.collisionHappened()) {
-                        colAmount = service.fixCollision();
-                        if (colAmount>16) {
-                            errorCollison.setVisible(true);
-                            break;
+                       int  colAmount = service.fixCollision();
+                        if (colAmount<=16) {
+                            statusText += String.format("'%c' : %s%n", data.charAt(i),
+                                    String.join("", Collections.nCopies(colAmount, "*")));
+                            status.setText(statusText);
+                            receivedData+=data.charAt(i);
+                            outputData.setText(receivedData);
                         }
-                    }
-                    statusText += String.format("'%c' : %s%n", data.charAt(i),
-                            String.join("", Collections.nCopies(colAmount, "*")));
-                    status.setText(statusText);
-                    receivedData+=data.charAt(i);
-                    outputData.setText(receivedData);
 
                 }
             }
